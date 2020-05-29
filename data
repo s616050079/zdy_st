@@ -1,0 +1,66 @@
+
+
+
+在开发社团管理系统之前，分析了该系统的数据量。选择Microsoft SQL Server 2017数据库存储这些信息， 数据库命名为shetuan，在数据库中创建了 6 个数据表用于存储不同的信息。分别如下：
+G          存储管理员信息
+XS	        存储学生信息
+S          存储社团信息
+st_user    存储用户信息
+H          存储活动信息
+HSX			 存储社团，学生和活动的关系
+（1）管理员表存储了一些基础的管理员信息。
+表1 管理员表
+字段	类型	主键	非空	说明
+G_id	VARCHAR(20)	Y	Y	管理员号
+G_name	VARCHAR(10)	N	Y	管理员姓名
+G_sex	VARCHAR(5)	N	N	管理员性别
+G_pt	VARCHAR(12)	N	N	管理员职称
+G_tel	VARCHAR(20)	N	N	管理员电话
+USERNAME	VARCHAR(50)	N	Y	用户名，外键
+
+（2）社团表存储了一些基础的社团信息
+表2 社团表
+字段	类型	主键	非空	说明
+S_id	VARCHAR(20)	Y	Y	社团编号
+S_name	VARCHAR(20)	N	Y	社团名
+S_type	VARCHAR(30)	N	N	社团类型
+S_describe	VARCHAR(200)	N	Y	社团描述
+S_deleted	VARCHAR(50)	N	N	社团是否被删除
+G_id	VARCHAR(50)	N	Y	管理员id，外键
+（3）学生表存储了一些基础的学生信息，同时也包含了学生和社团的关系，学生和注册用户之间的关系。
+
+表3 学生表
+字段	类型	主键	非空	说明
+X_id	VARCHAR(20)	Y	Y	学生编号
+X_name	VARCHAR(20)	N	Y	学生姓名
+X_sex	VARCHAR(5)	N	N	学生性别
+X_college	VARCHAR(30)	N	N	学生学院
+X_date	VARCHAR(20)	N	N	学生出生年月
+X_num	VARCHAR(20)	N	N	学生学号
+S_id	VARCHAR(20)	N	N	社团编号，外键
+Username	VARCHAR(50)	N	N	用户名，外键
+
+（4）活动表存储了一些基本的活动信息，将活动的举办日期，举办时间和举办地点存储在表中，方便查询，
+表4 活动表
+字段	类型	主键	非空	说明
+H_id	VARCHAR(20)	Y	Y	活动编号
+H_date	VARCHAR(20)	N	N	活动日期
+H_time	VARCHAR(20)	N	N	活动时间
+H_place	VARCHAR(20)	N	N	活动地点
+H_describe	VARCHAR(200)	N	Y	活动描述
+H_deleted	VARCHAR(50)	N	N	活动是否被删除
+S_id	VARCHAR(50)	N	N	社团编号，外键
+
+（1）用户表存储了用户的注册信息，以及用户的类型。
+表5 用户表
+字段	类型	主键	非空	说明
+USERNAME	VARCHAR(20)	Y	Y	用户名
+UPASSWORD	VARCHAR(20)	N	Y	用户密码
+DJ	VARCHAR(20)	N	Y	用户等级
+
+（2）HSX表存储了活动，社团和学生的关系。
+表6 HSX表
+字段	类型	主键	非空	说明
+H_id	VARCHAR(20)	Y	Y	活动编号
+S_id	VARCHAR(20)	N	N	社团编号
+X_id	VARCHAR(20)	N	N	学生编号
